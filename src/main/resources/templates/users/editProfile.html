@@ -10,11 +10,8 @@
 <body>
 <section layout:fragment="content" class="container mt-5">
     <h1>Edit Profile</h1>
-    <form th:action="@{/profile/edit}" th:object="${user}" method="post">
-        <div class="mb-3">
-            <label for="username" class="form-label">Username</label>
-            <input type="text" id="username" th:field="*{username}" class="form-control" readonly/>
-        </div>
+    <!-- Form chỉnh sửa thông tin người dùng -->
+    <form th:action="@{/profile/edit/{username}(username=${user.username})}" th:object="${user}" method="post">
         <div class="mb-3">
             <label for="email" class="form-label">Email</label>
             <input type="email" id="email" th:field="*{email}" class="form-control"/>

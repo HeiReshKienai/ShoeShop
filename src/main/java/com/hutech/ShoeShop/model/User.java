@@ -50,9 +50,6 @@ public class User implements UserDetails {
     @Pattern(regexp = "^[0-9]*$", message = "Phone must be number")
     private String phone;
 
-    @Column(name = "provider", length = 50)
-    private String provider;
-
     @Column(name = "address", length = 255)
     private String address;
 
