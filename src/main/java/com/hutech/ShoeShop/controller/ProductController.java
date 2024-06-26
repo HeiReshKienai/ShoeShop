@@ -1,10 +1,8 @@
 package com.hutech.ShoeShop.controller;
 
 import com.hutech.ShoeShop.model.Product;
-import com.hutech.ShoeShop.repository.ManufacturerRepository;
 import com.hutech.ShoeShop.service.BrandService;
 import com.hutech.ShoeShop.service.CategoryService;
-import com.hutech.ShoeShop.service.ManufacturerService;
 import com.hutech.ShoeShop.service.ProductService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,12 +21,10 @@ public class ProductController {
     private ProductService productService;
     @Autowired
     private CategoryService categoryService; // Đảm bảo bạn đã inject CategoryService
-    @Autowired
-    private ManufacturerRepository manufacturerRepository;
+
     @Autowired
     private BrandService brandService;
-    @Autowired
-    private ManufacturerService manufacturerService;
+
 
     // Display a list of all products
     @GetMapping
@@ -41,7 +37,7 @@ public class ProductController {
     public String showAddForm(Model model) {
         model.addAttribute("product", new Product());
         model.addAttribute("categories", categoryService.getAllCategories()); //Load categories
-        model.addAttribute("manufacturers", manufacturerService.getAllManufacturers());
+
         model.addAttribute("brands", brandService.getAllBrands());
         return "/products/add-product";
     }
@@ -61,7 +57,7 @@ public class ProductController {
                 .orElseThrow(() -> new IllegalArgumentException("Invalid product Id:" + id));
         model.addAttribute("product", product);
         model.addAttribute("categories", categoryService.getAllCategories()); //Load categories
-        model.addAttribute("manufacturers", manufacturerService.getAllManufacturers());
+
         model.addAttribute("brands", brandService.getAllBrands());
         return "/products/update-product";
     }
