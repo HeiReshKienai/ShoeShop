@@ -32,13 +32,6 @@
       </select>
     </div>
     <div class="mb-3">
-      <label for="manufacturer" class="form-label">Manufacturer:</label>
-      <select th:field="*{manufacturer}" class="form-control" id="manufacturer">
-        <option th:each="manufacturer : ${manufacturers}"
-                th:value="${manufacturer.id}" th:text="${manufacturer.name}"></option>
-      </select>
-    </div>
-    <div class="mb-3">
       <label for="brand" class="form-label">Brand:</label>
       <select th:field="*{brand}" class="form-control" id="brand">
         <option th:each="brand : ${brands}"

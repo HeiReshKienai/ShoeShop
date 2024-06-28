@@ -10,6 +10,7 @@ import lombok.Setter;
 @RequiredArgsConstructor
 @AllArgsConstructor
 @Entity
+//
 @Table(name = "products")
 public class Product {
     @Id

@@ -12,10 +12,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/")
@@ -59,7 +57,7 @@ public class UserController {
         return "users/profile";
     }
 
-    @GetMapping("/profile/edit")
+    @GetMapping("/profile/edit/{username}")
     public String editProfile(Model model) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = authentication.getName();
@@ -69,18 +67,33 @@ public class UserController {
         return "users/editProfile";
     }
 
-    @PostMapping("/profile/edit")
-    public String saveProfile(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
+    @PostMapping("/profile/edit/{username}")
+    public String saveProfile(@Valid @ModelAttribute("user") User user,
+                              BindingResult bindingResult,
+                              Model model,
+                              @PathVariable("username") String username,
+                              RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
-            return "users/editProfile";
+            return "users/editProfile"; // Trả về form chỉnh sửa nếu có lỗi
         }
-        User existingUser = userService.findByUsername(user.getUsername())
+
+        // Tìm người dùng hiện tại từ username
+        User existingUser = userService.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User not found"));
+
+        // Cập nhật thông tin từ form chỉnh sửa
         existingUser.setEmail(user.getEmail());
         existingUser.setPhone(user.getPhone());
         existingUser.setFullName(user.getFullName());
         existingUser.setAddress(user.getAddress());
+
+        // Lưu lại thông tin người dùng đã cập nhật
         userService.save(existingUser);
+
+        // Thêm thông báo thành công và chuyển hướng về trang profile
+        redirectAttributes.addFlashAttribute("successMessage", "Profile updated successfully!");
         return "redirect:/profile";
     }
+
+
 }

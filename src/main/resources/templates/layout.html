@@ -30,9 +30,6 @@
                     <a th:href="@{/brands}" class="nav-link text-white"> Brand</a>
                 </li>
                 <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">
-                    <a th:href="@{/manufacturers}" class="nav-link text-white"> Manufacturer</a>
-                </li>
-                <li class="nav-item" sec:authorize="hasAnyAuthority('ADMIN')">
                     <a th:href="@{/order/list}" class="nav-link text-white"> Order</a>
                 </li>
 
