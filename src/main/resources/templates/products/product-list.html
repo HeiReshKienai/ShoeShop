@@ -19,12 +19,13 @@
     <div class="row row-cols-1 row-cols-md-3 g-4">
       <div class="col" th:each="product : ${products}">
         <div class="card h-100">
+          <img th:src="@{/uploads/{imagename}(imagename=${product.imageUrl})}" class="card-img-top" alt="Product Image"/>
           <div class="card-body">
             <h5 class="card-title" th:text="${product.name}"></h5>
             <h6 class="card-subtitle mb-2 text-muted" th:text="'ID: ' + ${product.id}"></h6>
             <p class="card-text" th:text="'Giá: ' + ${product.price}"></p>
             <p class="card-text" th:text="'Mô tả: ' +${product.description}"></p>
-            <p class="card-text" th:text="'Loại sản phẩm ' + ${product.category.name}"></p>
+            <p class="card-text" th:text="'Loại sản phẩm: ' + ${product.category.name}"></p>
             <p class="card-text" th:text="'Thương hiệu: ' + ${product.brand.name}"></p>
           </div>
           <div class="card-footer">
@@ -36,11 +37,9 @@
             </div>
             <form th:action="@{/cart/add}" method="post"
                   sec:authorize="isAuthenticated()">
-              <input type="number" name="quantity" min="1" value="1"class="form-control d-inline-block" style="width: 70px;">
-              <input type="hidden" th:value="${product.id}"
-                     name="productId"/>
-              <button type="submit" class="btn btn-warning btn-sm">Thêm Vào
-                Giỏ</button>
+              <input type="number" name="quantity" min="1" value="1" class="form-control d-inline-block" style="width: 70px;">
+              <input type="hidden" th:value="${product.id}" name="productId"/>
+              <button type="submit" class="btn btn-warning btn-sm">Thêm Vào Giỏ</button>
             </form>
           </div>
         </div>
