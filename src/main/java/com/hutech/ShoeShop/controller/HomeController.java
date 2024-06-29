@@ -10,4 +10,3 @@ public class HomeController {
         return "home/index";
     }
 }
-

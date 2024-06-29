@@ -7,7 +7,6 @@ import com.hutech.ShoeShop.model.User;
 import com.hutech.ShoeShop.repository.CategoryRepository;
 import com.hutech.ShoeShop.repository.IRoleRepository;
 import com.hutech.ShoeShop.repository.IUserRepository;
-import com.hutech.ShoeShop.repository.UserRepository;
 import jakarta.validation.constraints.NotNull;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,5 +65,13 @@ public class UserService implements UserDetailsService {
     public Optional<User> findByUsername(String username) throws
             UsernameNotFoundException {
         return userRepository.findByUsername(username);
+    }
+
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
+
+    public void updateUserByUsername(String username, User user) {
+        userRepository.updateUserByUsername(username, user.getEmail(),user.getFullName(),user.getAddress(),user.getPhone());
     }
 }

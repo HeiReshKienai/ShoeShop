@@ -67,33 +67,20 @@ public class UserController {
         return "users/editProfile";
     }
 
+    /*@PostMapping("/profile/edit/{username}")
+    public void updateUser(@RequestBody User user) {
+        user.setUsername(user.getUsername());
+        user.setAddress(user.getAddress());
+        user.setEmail(user.getEmail());
+        user.setPhone(user.getPhone());
+        user.setFullName(user.getFullName());
+        userService.updateUserByUsername(user.getUsername(), user);
+    }*/
+
     @PostMapping("/profile/edit/{username}")
-    public String saveProfile(@Valid @ModelAttribute("user") User user,
-                              BindingResult bindingResult,
-                              Model model,
-                              @PathVariable("username") String username,
-                              RedirectAttributes redirectAttributes) {
-        if (bindingResult.hasErrors()) {
-            return "users/editProfile"; // Trả về form chỉnh sửa nếu có lỗi
-        }
-
-        // Tìm người dùng hiện tại từ username
-        User existingUser = userService.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-
-        // Cập nhật thông tin từ form chỉnh sửa
-        existingUser.setEmail(user.getEmail());
-        existingUser.setPhone(user.getPhone());
-        existingUser.setFullName(user.getFullName());
-        existingUser.setAddress(user.getAddress());
-
-        // Lưu lại thông tin người dùng đã cập nhật
-        userService.save(existingUser);
-
-        // Thêm thông báo thành công và chuyển hướng về trang profile
-        redirectAttributes.addFlashAttribute("successMessage", "Profile updated successfully!");
-        return "redirect:/profile";
+    public String updateUser(@ModelAttribute User user) {
+        userService.updateUserByUsername(user.getUsername(), user);
+        return "users/profile";
     }
-
 
 }
