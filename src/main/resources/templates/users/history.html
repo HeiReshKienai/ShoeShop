@@ -34,7 +34,8 @@
                 <td th:text="${order.paymentMethod}">Payment Method</td>
                 <td th:text="${order.status}">Status</td>
                 <td>
-                    <a th:href="@{/profile/history/{id}(id=${order.id})}" class="btn btn-primary">Detail</a>
+                    <a th:href="@{/order/confirmation(orderId=${order.id})}" class="btn btn-info btn-sm">Details</a>
+                    <a th:if="${order.paymentMethod == 'VNPAY'}" th:href="@{/api/payment/create_payment/{orderId}(orderId=${order.id})}" class="btn btn-success btn-sm">Pay</a>
                 </td>
             </tr>
             </tbody>

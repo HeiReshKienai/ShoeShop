@@ -46,7 +46,7 @@ public class PaymentController {
 
 
         vnp_Params.put("vnp_TxnRef", vnp_TxnRef);
-        vnp_Params.put("vnp_ReturnUrl", "http://localhost:8080/products");
+        vnp_Params.put("vnp_ReturnUrl", "http://localhost:8080/api/payment/payment_info");
         vnp_Params.put("vnp_Locale", "vn");
         vnp_Params.put("vnp_OrderInfo", "Thanh toan don hang:" + vnp_TxnRef);
         vnp_Params.put("vnp_OrderType", "other");
@@ -87,13 +87,25 @@ public class PaymentController {
         String vnp_SecureHash = Config.hmacSHA512(Config.secretKey, hashData.toString());
         queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
         String paymentUrl = Config.vnp_PayUrl + "?" + queryUrl;
-        PaymentResDTO paymentResDTO  = new PaymentResDTO();
-        paymentResDTO.setStatus("Ok");
-        paymentResDTO.setMessage("Successfully");
-        paymentResDTO.setURL(paymentUrl);
+//        PaymentResDTO paymentResDTO  = new PaymentResDTO();
+//        paymentResDTO.setStatus("Ok");
+//        paymentResDTO.setMessage("Successfully");
+//        paymentResDTO.setURL(paymentUrl);
 
         return ResponseEntity.status(HttpStatus.OK).body(paymentResDTO);
 
+    }
+    @GetMapping("/payment_info")
+    public String transaction(@RequestParam(value = "vnp_ResponseCode") String responseCode) {
+
+        if (responseCode.equals("00")) {
+            return "redirect:https://www.facebook.com/";
+
+        } else {
+            return "/api/payment";
+        }
+
+//        return "redirect:https://www.facebook.com/";
     }
 
 }
