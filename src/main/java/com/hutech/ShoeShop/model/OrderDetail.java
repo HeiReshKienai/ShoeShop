@@ -17,11 +17,13 @@ public class OrderDetail {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private int quantity;
-    @ManyToOne
+    /*@ManyToOne
     @JoinColumn(name = "product_id")
-    private Product product;
+    private Product product;*/
     @ManyToOne
     @JoinColumn(name = "order_id")
     private Order order;
+    private String productName;
+    private double productPrice;
 }
 
