@@ -1,6 +1,10 @@
 package com.hutech.ShoeShop.controller;
 
+import com.hutech.ShoeShop.model.Order;
+import com.hutech.ShoeShop.model.OrderDetail;
 import com.hutech.ShoeShop.model.User;
+import com.hutech.ShoeShop.repository.OrderDetailRepository;
+import com.hutech.ShoeShop.service.OrderService;
 import com.hutech.ShoeShop.service.UserService;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
@@ -15,11 +19,15 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.List;
+
 @Controller
 @RequestMapping("/")
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+    private final OrderService orderService;
+    private final OrderDetailRepository orderDetailRepository;
 
     @GetMapping("/login")
     public String login() {
@@ -67,20 +75,24 @@ public class UserController {
         return "users/editProfile";
     }
 
-    /*@PostMapping("/profile/edit/{username}")
-    public void updateUser(@RequestBody User user) {
-        user.setUsername(user.getUsername());
-        user.setAddress(user.getAddress());
-        user.setEmail(user.getEmail());
-        user.setPhone(user.getPhone());
-        user.setFullName(user.getFullName());
-        userService.updateUserByUsername(user.getUsername(), user);
-    }*/
-
     @PostMapping("/profile/edit/{username}")
     public String updateUser(@ModelAttribute User user) {
         userService.updateUserByUsername(user.getUsername(), user);
         return "users/profile";
     }
 
+    @GetMapping("/profile/history")
+    public String userHistory(Model model) {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = authentication.getName();
+        List<Order> orders = orderService.getOrdersByUsername(currentUsername);
+        model.addAttribute("orders", orders);
+        return "users/history";
+    }
+    @GetMapping("/profile/history/{id}")
+    public String userHistoryDetail(@PathVariable int id, Model model) {
+        List<OrderDetail> orderDetails = orderDetailRepository.findByOderId(id);
+        model.addAttribute("orderDetails", orderDetails);
+        return "users/historyDetail";
+    }
 }

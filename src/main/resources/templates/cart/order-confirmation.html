@@ -32,10 +32,10 @@
     </thead>
     <tbody>
     <tr th:each="detail : ${orderDetails}">
-      <td th:text="${detail.product.name}"></td>
+      <td th:text="${detail.productName}"></td>
       <td th:text="${detail.quantity}"></td>
-      <td th:text="${(detail.product.price)}"></td>
-      <td th:text="${(detail.product.price * detail.quantity)}"></td>
+      <td th:text="${(detail.productPrice)}"></td>
+      <td th:text="${(detail.productPrice * detail.quantity)}"></td>
     </tr>
     </tbody>
   </table>

@@ -7,6 +7,8 @@ import com.hutech.ShoeShop.repository.OrderRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -35,12 +37,16 @@ public class OrderService {
         order.setNote(note);
         order.setPaymentMethod(paymentMethod);
         order.setStatus("đặt hàng thành công");
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentUsername = authentication.getName();
+        order.setUsername(currentUsername);
 
         order = orderRepository.save(order);
         for (CartItem item : cartItems) {
             OrderDetail detail = new OrderDetail();
             detail.setOrder(order);
-            detail.setProduct(item.getProduct());
+            detail.setProductName(item.getProduct().getName());
+            detail.setProductPrice(item.getProduct().getPrice());
             detail.setQuantity(item.getQuantity());
 
             orderDetailRepository.save(detail);
@@ -51,7 +57,7 @@ public class OrderService {
 
     public double calculateTotalAmount(Order order) {
         return order.getOrderDetails().stream()
-                .mapToDouble(detail -> detail.getProduct().getPrice() * detail.getQuantity())
+                .mapToDouble(detail -> detail.getProductPrice() * detail.getQuantity())
                 .sum();
     }
 
@@ -73,6 +79,7 @@ public class OrderService {
         return null; // or throw an exception if order is not found
     }
 
-
-
+    public List<Order> getOrdersByUsername(String username) {
+        return orderRepository.findByUsername(username);
+    }
 }
