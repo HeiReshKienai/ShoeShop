@@ -89,10 +89,4 @@ public class UserController {
         model.addAttribute("orders", orders);
         return "users/history";
     }
-    @GetMapping("/profile/history/{id}")
-    public String userHistoryDetail(@PathVariable int id, Model model) {
-        List<OrderDetail> orderDetails = orderDetailRepository.findByOderId(id);
-        model.addAttribute("orderDetails", orderDetails);
-        return "users/historyDetail";
-    }
 }
