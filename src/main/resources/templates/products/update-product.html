@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout1}">
+      layout:decorate="~{admin-layout}">
 <head>
   <title>Update Product</title>
   <link rel="stylesheet"
@@ -10,7 +10,7 @@
 <body>
 <section layout:fragment="content" class="container">
   <h1>Edit Product</h1>
-  <form th:action="@{/products/update/{id}(id=${product.id})}"
+  <form th:action="@{/products-update-{id}(id=${product.id})}"
         th:object="${product}" method="post" enctype="multipart/form-data" class="needs-validation" novalidate>
     <div class="mb-3">
       <label for="name" class="form-label">Name:</label>

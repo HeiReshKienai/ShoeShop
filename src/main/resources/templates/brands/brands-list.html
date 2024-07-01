@@ -11,8 +11,8 @@
 
 <section layout:fragment="content" class="container">
     <h1>Brands List</h1>
-    <<div sec:authorize="hasAuthority('ADMIN')">
-        <a th:href="@{/brands/add}" class="btn btn-primary mb-3">Add New Brand</a>
+    <div sec:authorize="hasAuthority('ADMIN')">
+        <a th:href="@{/brands-add}" class="btn btn-primary mb-3">Add New Brand</a>
     </div>
     <table class="table table-bordered table-hover">
         <thead class="table-dark">
@@ -27,8 +27,8 @@
             <td th:text="${brand.id}"></td>
             <td th:text="${brand.name}"></td>
             <td>
-                <a th:href="@{/brands/edit/{id}(id=${brand.id})}" class="btn btn-success btn-sm">Edit</a>
-                <a th:href="@{/brands/delete/{id}(id=${brand.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
+                <a th:href="@{/brands-edit-{id}(id=${brand.id})}" class="btn btn-success btn-sm">Edit</a>
+                <a th:href="@{/brands-delete-{id}(id=${brand.id})}" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
             </td>
         </tr>
         </tbody>

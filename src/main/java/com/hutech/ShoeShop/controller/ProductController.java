@@ -1,4 +1,4 @@
-package com.hutech.ShoeShop.controller.admin;
+package com.hutech.ShoeShop.controller;
 
 import com.hutech.ShoeShop.model.Product;
 import com.hutech.ShoeShop.service.BrandService;
@@ -15,7 +15,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
 @Controller
-@RequestMapping("/products")
 public class ProductController {
     @Autowired
     private ProductService productService;
@@ -27,14 +26,14 @@ public class ProductController {
     private BrandService brandService;
 
     // Display a list of all products
-    @GetMapping
+    @GetMapping("/products")
     public String showProductList(Model model) {
         model.addAttribute("products", productService.getAllProducts());
         return "/products/product-list";
     }
 
     // For adding a new product
-    @GetMapping("/add")
+    @GetMapping("/products-add")
     public String showAddForm(Model model) {
         model.addAttribute("product", new Product());
         model.addAttribute("categories", categoryService.getAllCategories());
@@ -43,7 +42,7 @@ public class ProductController {
     }
 
     // Process the form for adding a new product
-    @PostMapping("/add")
+    @PostMapping("/products-add")
     public String addProduct(@Valid @ModelAttribute("product") Product product,
                              BindingResult result,
                              @RequestParam("imageFile") MultipartFile imageFile) {
@@ -60,7 +59,7 @@ public class ProductController {
     }
 
     // For editing a product
-    @GetMapping("/edit/{id}")
+    @GetMapping("/products-edit-{id}")
     public String showEditForm(@PathVariable Long id, Model model) {
         Product product = productService.getProductById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid product Id:" + id));
@@ -71,7 +70,7 @@ public class ProductController {
     }
 
     // Process the form for updating a product
-    @PostMapping("/update/{id}")
+    @PostMapping("/products-update-{id}")
     public String updateProduct(@PathVariable Long id,
                                 @Valid @ModelAttribute("product") Product product,
                                 BindingResult result,
@@ -90,7 +89,7 @@ public class ProductController {
     }
 
     // Handle request to delete a product
-    @GetMapping("/delete/{id}")
+    @GetMapping("/products-delete/{id}")
     public String deleteProduct(@PathVariable Long id) {
         productService.deleteProductById(id);
         return "redirect:/products";

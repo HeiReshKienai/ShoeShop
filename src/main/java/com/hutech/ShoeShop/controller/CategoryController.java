@@ -1,4 +1,4 @@
-package com.hutech.ShoeShop.controller.admin;
+package com.hutech.ShoeShop.controller;
 
 import com.hutech.ShoeShop.model.Category;
 import com.hutech.ShoeShop.service.CategoryService;
@@ -19,13 +19,13 @@ public class CategoryController {
     @Autowired
     private final CategoryService categoryService;
 
-    @GetMapping("/categories/add")
+    @GetMapping("/categories-add")
     public String showAddForm(Model model) {
         model.addAttribute("category", new Category());
         return "/categories/add-category";
     }
 
-    @PostMapping("/categories/add")
+    @PostMapping("/categories-add")
     public String addCategory(@Valid Category category, BindingResult result) {
         if (result.hasErrors()) {
             return "/categories/add-category";
@@ -42,14 +42,14 @@ public class CategoryController {
         return "/categories/categories-list";
     }
     // GET request to show category edit form
-    @GetMapping("/categories/edit/{id}")
+    @GetMapping("/categories-edit-{id}")
     public String showUpdateForm(@PathVariable("id") Long id, Model model) {
         Category category = categoryService.getCategoryById(id).orElseThrow(() -> new IllegalArgumentException("Invalid category Id:" + id));
         model.addAttribute("category", category);
         return "/categories/update-category";
     }
     // POST request to update category
-    @PostMapping("/categories/update/{id}")
+    @PostMapping("/categories-update-{id}")
     public String updateCategory(@PathVariable("id") Long id, @Valid Category category,
                                  BindingResult result, Model model) {
         if (result.hasErrors()) {
@@ -61,7 +61,7 @@ public class CategoryController {
         return "redirect:/categories";
     }
     // GET request for deleting category
-    @GetMapping("/categories/delete/{id}")
+    @GetMapping("/categories-delete-{id}")
     public String deleteCategory(@PathVariable("id") Long id, Model model) {
         Category category = categoryService.getCategoryById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid category Id:"
