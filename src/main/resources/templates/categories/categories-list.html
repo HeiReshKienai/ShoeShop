@@ -13,7 +13,7 @@
 <section layout:fragment="content" class="container">
   <h1>Categories List</h1>
   <div sec:authorize="hasAuthority('ADMIN')">
-    <a th:href="@{/categories/add}" class="btn btn-primary mb-3">Add New
+    <a th:href="@{/categories-add}" class="btn btn-primary mb-3">Add New
       Category</a>
 
   </div>
@@ -31,9 +31,8 @@
       <td th:text="${category.name}"></td>
       <td>
         <div sec:authorize="hasAuthority('ADMIN')">
-        <a th:href="@{/categories/edit/{id}(id=${category.id})}" class="btn
-btn-success btn-sm">Edit</a>
-        <a th:href="@{/categories/delete/{id}(id=${category.id})}"
+        <a th:href="@{/categories-edit-{id}(id=${category.id})}" class="btn btn-success btn-sm">Edit</a>
+        <a th:href="@{/categories-delete-{id}(id=${category.id})}"
            class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</a>
         </div>
       </td>
