@@ -36,7 +36,7 @@ public class OrderService {
         order.setEmail(email);
         order.setNote(note);
         order.setPaymentMethod(paymentMethod);
-        order.setStatus("đặt hàng thành công");
+        order.setStatus("Đặt hàng thành công");
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = authentication.getName();
         order.setUsername(currentUsername);

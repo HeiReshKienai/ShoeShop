@@ -19,4 +19,10 @@ public class HomeController {
         model.addAttribute("currentUser", currentUsername);
         return "home/index";
     }
+    @GetMapping("/about")
+    public String about() {
+
+        return "home/about";
+    }
+
 }
