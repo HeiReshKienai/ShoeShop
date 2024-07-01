@@ -38,8 +38,8 @@ public class SecurityConfig {
         return http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
 
-                        .requestMatchers("/css/**", "/js/**", "/", "/oauth/**", "/register", "/error",
-                                "/products", "/cart", "/cart/**", "/uploads/**","/static/**")
+                        .requestMatchers("/css/**", "/js/**", "/img/**", "/webfonts/**", "/", "/oauth/**", "/register", "/error",
+                                "/products", "/cart", "/cart/**", "/uploads/**")
                         .permitAll() // Cho phép truy cập không cần xác thực.
                         .requestMatchers("/products/edit/**", "/products/add", "/products/delete","categories","brands","/categories/edit/","categories/add","categories/delete","brands/add","brands/edit/**","brands/delete/")
                         .hasAnyAuthority("ADMIN") // Chỉ cho phép ADMIN truy cập.
@@ -57,7 +57,7 @@ public class SecurityConfig {
                 formLogin(formLogin -> formLogin
                         .loginPage("/login") // Trang đăng nhập.
                         .loginProcessingUrl("/login") // URL xử lý đăng nhập.
-                        .defaultSuccessUrl("/products") // Trang sau đăng nhập thành công.
+                        .defaultSuccessUrl("/") // Trang sau đăng nhập thành công.
                         .failureUrl("/login?error") // Trang đăng nhập thất bại.
                         .permitAll()
                 ) .
@@ -70,10 +70,10 @@ public class SecurityConfig {
                 exceptionHandling(exceptionHandling -> exceptionHandling
                         .accessDeniedPage("/403") // Trang báo lỗi khi truy cập không được phép.
                 ) .
-                sessionManagement(sessionManagement -> sessionManagement
+                /*sessionManagement(sessionManagement -> sessionManagement
                         .maximumSessions(1) // Giới hạn số phiên đăng nhập.
                         .expiredUrl("/login") // Trang khi phiên hết hạn.
-                ) .
+                ) .*/
                 httpBasic(httpBasic -> httpBasic
                         .realmName("hutech") // Tên miền cho xác thực cơ bản.
                 ) .

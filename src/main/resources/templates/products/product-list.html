@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security5"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layout}">
+      layout:decorate="~{admin-layout}">
 <head>
   <title th:text="${title} ?: 'Product'">Product</title>
   <link rel="stylesheet"
@@ -11,7 +11,7 @@
 <body>
 
 <section layout:fragment="content">
-  <div class="container mt-5">
+  <div class="container">
     <h1>Products List</h1>
     <div sec:authorize="hasAuthority('ADMIN')">
       <a th:href="@{/products/add}" class="btn btn-primary mb-3">Add New Product</a>
