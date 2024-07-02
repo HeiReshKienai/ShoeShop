@@ -33,4 +33,10 @@ public class HomeController {
 
         return "home/about";
     }
+
+    @GetMapping("/shop")
+    public String shop(Model model) {
+        model.addAttribute("products", productService.getAllProducts());
+        return "home/shop";
+    }
 }
