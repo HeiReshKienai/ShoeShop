@@ -98,4 +98,8 @@ public class ProductService {
     }
 
 
+    public List<Product> getTop6Products() {
+        Pageable top6 = PageRequest.of(0, 6);
+        return productRepository.findTopProducts(top6);
+    }
 }

@@ -218,6 +218,20 @@
 <script th:src="@{/js/templatemo.js}"></script>
 <script th:src="@{/js/custom.js}"></script>
 <!-- End Script -->
+<!-- chat BOX-->
+
+<script src="https://sf-cdn.coze.com/obj/unpkg-va/flow-platform/chat-app-sdk/0.1.0-beta.4/libs/oversea/index.js"></script>
+<script>
+    new CozeWebSDK.WebChatClient({
+        config: {
+            bot_id: '7387069204878835730',
+        },
+        componentProps: {
+            title: 'Nhân viên tư vấn',
+        },
+    });
+</script>
+
 </body>
 
 </html>
