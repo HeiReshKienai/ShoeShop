@@ -28,4 +28,9 @@ public interface IUserRepository extends JpaRepository<User, String> {
 
     @Query("SELECT COUNT(o) FROM Order o")
     Long getTotalOrders();
+
+    Optional<User> findByEmail(String email);
+
+    Optional<User> findByPhone(String phone);
+
 }
