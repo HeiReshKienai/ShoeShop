@@ -50,7 +50,7 @@ public class PaymentController {
         vnp_Params.put("vnp_TxnRef", vnp_TxnRef);
         vnp_Params.put("vnp_ReturnUrl", "http://localhost:8080/api/payment/payment_info?orderId=" + orderId);
         vnp_Params.put("vnp_Locale", "vn");
-        vnp_Params.put("vnp_OrderInfo", "Thanh toan don hang:" + vnp_TxnRef);
+        vnp_Params.put("vnp_OrderInfo", "Thanh toan don hang:" + orderId);
         vnp_Params.put("vnp_OrderType", "other");
 
         Calendar cld = Calendar.getInstance(TimeZone.getTimeZone("Etc/GMT+7"));
@@ -82,7 +82,6 @@ public class PaymentController {
         String vnp_SecureHash = Config.hmacSHA512(Config.secretKey, hashData.toString());
         queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
         String paymentUrl = Config.vnp_PayUrl + "?" + queryUrl;
-
         return "redirect:" + paymentUrl;
     }
 
@@ -95,5 +94,6 @@ public class PaymentController {
             return "redirect:/profile/history?paymentSuccess=false";
         }
     }
+    //https://sandbox.vnpayment.vn/paymentv2/vpcpay.html?vnp_Amount=282730000&vnp_BankCode=NCB&vnp_Command=pay&vnp_CreateDate=20240703041308&vnp_CurrCode=VND&vnp_ExpireDate=20240703042808&vnp_IpAddr=13.160.92.202&vnp_Locale=vn&vnp_OrderInfo=Thanh+toan+don+hang%3A2&vnp_OrderType=other&vnp_ReturnUrl=http%3A%2F%2Flocalhost%3A8080%2Fapi%2Fpayment%2Fpayment_info%3ForderId%3D2&vnp_TmnCode=698PAAJG&vnp_TxnRef=31611533&vnp_Version=2.1.0&vnp_SecureHash=12892f9537584465c5a5e9e218480d24b5528eb7a80a4cc59b49c2468bdfd9feb49ec3b04bfc048a02b7e3463a84319951294129b0231f0ec175f79b20cc19cd
 
 }
