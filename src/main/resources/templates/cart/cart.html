@@ -15,6 +15,7 @@
   <table class="table" th:unless="${cartItems.isEmpty()}">
     <thead class="table-light">
     <tr>
+      <th>Product Image</th>
       <th>Product Name</th>
       <th>Quantity</th>
       <th>Action</th>
@@ -22,11 +23,13 @@
     </thead>
     <tbody>
     <tr th:each="item : ${cartItems}">
+      <td><img th:src="@{/uploads/{imagename}(imagename=${item.product.imageUrl})}"style="width: 100px; height: 100px;"></td>
+
       <td th:text="${item.product.name}"></td>
       <td th:text="${item.quantity}"></td>
       <td>
         <a
-              th:href="@{/cart/remove/{productId}(productId=${item.product.id})}" class="btn btndanger btn-sm">Remove</a>
+              th:href="@{/cart/remove/{productId}(productId=${item.product.id})}" class="btn btn-danger btn-sm">Remove</a>
       </td>
     </tr>
     </tbody>

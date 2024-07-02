@@ -1,6 +1,6 @@
 package com.hutech.ShoeShop.controller;
 
-import com.hutech.ShoeShop.DTO.PaymentResDTO;
+
 import com.hutech.ShoeShop.config.Config;
 import com.hutech.ShoeShop.model.OrderDetail;
 import com.hutech.ShoeShop.service.OrderDetailService;
