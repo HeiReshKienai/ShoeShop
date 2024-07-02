@@ -7,40 +7,111 @@
     <title th:text="${title} ?: 'Product'">Product</title>
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        .scaled-image {
+            width: 200px;
+            height: 200px;
+        }
+        .discount-label {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: red;
+            color: white;
+            padding: 5px 10px;
+            font-size: 14px;
+            font-weight: bold;
+            border-radius: 3px;
+        }
+        .product-price {
+            text-align: center;
+            margin-bottom: 0;
+            align-items: center;
+        }
+        .product-price .original-price {
+            text-decoration: line-through;
+            color: gray;
+            font-size: 1rem;
+        }
+        .product-price .discounted-price {
+            color: red;
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 
 <section layout:fragment="content">
-    <div class="container">
-        <h1>Products List</h1>
-        <div sec:authorize="hasAuthority('ADMIN')">
-            <a th:href="@{/products/add}" class="btn btn-primary mb-3">Add New Product</a>
-        </div>
-        <div class="row row-cols-1 row-cols-md-3 g-4">
-            <div class="col" th:each="product : ${products}">
-                <div class="card h-100">
-                    <img th:src="@{/uploads/{imagename}(imagename=${product.imageUrl})}" class="card-img-top" alt="Product Image"/>
-                    <div class="card-body">
-                        <h5 class="card-title" th:text="${product.name}"></h5>
-                        <h6 class="card-subtitle mb-2 text-muted" th:text="'ID: ' + ${product.id}"></h6>
-                        <p class="card-text" th:text="'Giá: ' + ${product.price}"></p>
-                        <p class="card-text" th:text="'Mô tả: ' +${product.description}"></p>
-                        <p class="card-text" th:text="'Loại sản phẩm: ' + ${product.category.name}"></p>
-                        <p class="card-text" th:text="'Thương hiệu: ' + ${product.brand.name}"></p>
-                    </div>
-                    <div class="card-footer">
-                        <div sec:authorize="hasAuthority('ADMIN')">
-                            <a th:href="@{/products/edit/{id}(id=${product.id})}"
-                               class="btn btn-success btn-sm">Sửa</a>
-                            <a th:href="@{/products/delete/{id}(id=${product.id})}"
-                               class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc không?')">Xóa</a>
+    <div class="container py-5">
+        <div class="row">
+            <div class="col-lg-3">
+                <h1 class="h2 pb-4">Categories</h1>
+                <ul class="list-unstyled templatemo-accordion">
+                    <li class="pb-3">
+                        <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
+                            Gender
+                            <i class="fa fa-fw fa-chevron-circle-down mt-1"></i>
+                        </a>
+                        <ul class="collapse show list-unstyled pl-3">
+                            <li><a class="text-decoration-none" href="#">Men</a></li>
+                            <li><a class="text-decoration-none" href="#">Women</a></li>
+                        </ul>
+                    </li>
+                    <li class="pb-3">
+                        <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
+                            Sale
+                            <i class="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i>
+                        </a>
+                        <ul id="collapseTwo" class="collapse list-unstyled pl-3">
+                            <li><a class="text-decoration-none" href="#">Sport</a></li>
+                            <li><a class="text-decoration-none" href="#">Luxury</a></li>
+                        </ul>
+                    </li>
+                    <li class="pb-3">
+                        <a class="collapsed d-flex justify-content-between h3 text-decoration-none" href="#">
+                            Product
+                            <i class="pull-right fa fa-fw fa-chevron-circle-down mt-1"></i>
+                        </a>
+                        <ul id="collapseThree" class="collapse list-unstyled pl-3">
+                            <li><a class="text-decoration-none" href="#">Bag</a></li>
+                            <li><a class="text-decoration-none" href="#">Sweather</a></li>
+                            <li><a class="text-decoration-none" href="#">Sunglass</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="col-lg-9">
+                <div class="row">
+
+
+                <div class="row row-cols-1 row-cols-md-3 g-4">
+                    <div class="col" th:each="product : ${products}">
+                        <div class="card mb-4 product-wap rounded-0">
+                            <div class="card rounded-0 d-flex justify-content-center position-relative">
+                                <img class="card-img rounded-0 scaled-image align-self-center" th:src="@{/uploads/{imagename}(imagename=${product.imageUrl})}">
+                                <div class="discount-label">GIẢM 20%</div>
+                                <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                                    <ul class="list-unstyled">
+                                        <li>
+                                            <form th:action="@{/cart/add}" method="post">
+                                                <input type="hidden" name="quantity" min="1" value="1" class="form-control d-inline-block" style="width: 70px;">
+                                                <input type="hidden" th:value="${product.id}" name="productId"/>
+                                                <button type="submit" class="btn btn-success text-white mt-2"><i class="fas fa-cart-plus"></i></button>
+                                            </form>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="card-body">
+                                <p class="h3 card-title text-center" th:text="${product.name}"></p>
+                                <p class="product-price">
+                                    <span class="original-price" th:text="${#numbers.formatDecimal(product.price * 0.8,0, 'COMMA', 0, 'POINT')} + ' đ'"></span>
+                                    <span class="discounted-price" th:text="${#numbers.formatDecimal(product.price,  0, 'COMMA', 0, 'POINT')} + ' đ'"></span>
+                                </p>
+                            </div>
                         </div>
-                        <form th:action="@{/cart/add}" method="post"
-                              sec:authorize="isAuthenticated()">
-                            <input type="number" name="quantity" min="1" value="1" class="form-control d-inline-block" style="width: 70px;">
-                            <input type="hidden" th:value="${product.id}" name="productId"/>
-                            <button type="submit" class="btn btn-warning btn-sm">Thêm Vào Giỏ</button>
-                        </form>
                     </div>
                 </div>
             </div>

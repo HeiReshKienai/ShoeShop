@@ -24,7 +24,7 @@ public class HomeController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = authentication.getName();
         model.addAttribute("currentUser", currentUsername);
-        model.addAttribute("products", productService.getAllProducts());
+        model.addAttribute("products", productService.getTop6Products());
         return "home/index";
     }
 
@@ -32,5 +32,11 @@ public class HomeController {
     public String about() {
 
         return "home/about";
+    }
+
+    @GetMapping("/shop")
+    public String shop(Model model) {
+        model.addAttribute("products", productService.getAllProducts());
+        return "home/shop";
     }
 }
