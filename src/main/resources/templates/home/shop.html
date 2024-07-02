@@ -117,41 +117,41 @@
             <div class="col-lg-9">
                 <div class="row">
 
-                <div class="row row-cols-1 row-cols-md-3 g-4">
-                    <div class="col" th:each="product : ${products}">
-                        <div class="card mb-4 product-wap rounded-0">
-                            <div class="card rounded-0 d-flex justify-content-center position-relative">
-                                <img class="card-img rounded-0 scaled-image align-self-center" th:src="@{/uploads/{imagename}(imagename=${product.imageUrl})}">
-                                <div class="discount-label">GIẢM 20%</div>
-                                <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
-                                    <ul class="list-unstyled">
-                                        <li>
-                                            <a class="btn btn-success text-white mt-2" th:href="@{/detail/{id}(id=${product.id})}"><i class="far fa-eye"></i></a>
-                                            <form th:action="@{/cart/add}" method="post">
-                                                <input type="hidden" name="quantity" min="1" value="1" class="form-control d-inline-block" style="width: 70px;">
-                                                <input type="hidden" th:value="${product.id}" name="productId"/>
-                                                <button type="submit" class="btn btn-success text-white mt-2"><i class="fas fa-cart-plus"></i></button>
-                                            </form>
-                                        </li>
-                                    </ul>
+                    <div class="row row-cols-1 row-cols-md-3 g-4">
+                        <div class="col" th:each="product : ${products}">
+                            <div class="card mb-4 product-wap rounded-0">
+                                <div class="card rounded-0 d-flex justify-content-center position-relative">
+                                    <img class="card-img rounded-0 scaled-image align-self-center" th:src="@{/uploads/{imagename}(imagename=${product.imageUrl})}">
+                                    <div class="discount-label">GIẢM 20%</div>
+                                    <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
+                                        <ul class="list-unstyled">
+                                            <li>
+                                                <a class="btn btn-success text-white mt-2" th:href="@{/detail/{id}(id=${product.id})}"><i class="far fa-eye"></i></a>
+                                                <form th:action="@{/cart/add}" method="post">
+                                                    <input type="hidden" name="quantity" min="1" value="1" class="form-control d-inline-block" style="width: 70px;">
+                                                    <input type="hidden" th:value="${product.id}" name="productId"/>
+                                                    <button type="submit" class="btn btn-success text-white mt-2"><i class="fas fa-cart-plus"></i></button>
+                                                </form>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="card-body">
-                                <p class="h3 card-title text-center" th:text="${product.name}"></p>
-                                <p class="text-center" th:text="'Category: ' + ${product.category.getName()}"></p>
-                                <p class="text-center" th:text="'Brand: ' + ${product.brand.getName()}"></p>
-                                <p class="product-price">
-                                    <span class="original-price" th:text="${#numbers.formatDecimal(product.price / 0.8,0, 'COMMA', 0, 'POINT')} + ' đ'"></span>
-                                    <span class="discounted-price" th:text="${#numbers.formatDecimal(product.price,  0, 'COMMA', 0, 'POINT')} + ' đ'"></span>
-                                </p>
+                                <div class="card-body">
+                                    <p class="h3 card-title text-center" th:text="${product.name}"></p>
+                                    <p class="text-center" th:text="'Category: ' + ${product.category.getName()}"></p>
+                                    <p class="text-center" th:text="'Brand: ' + ${product.brand.getName()}"></p>
+                                    <p class="product-price">
+                                        <span class="original-price" th:text="${#numbers.formatDecimal(product.price / 0.8,0, 'COMMA', 0, 'POINT')} + ' đ'"></span>
+                                        <span class="discounted-price" th:text="${#numbers.formatDecimal(product.price,  0, 'COMMA', 0, 'POINT')} + ' đ'"></span>
+                                    </p>
 
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     </div>
 </section>
 
