@@ -168,11 +168,8 @@
                     <li><span>Bán Chạy</span></li>
                 </div>
 
-
             </div>
         </div>
-
-
 
 
         <div class="row row-cols-1 row-cols-md-3 g-4">
@@ -184,6 +181,7 @@
                         <div class="card-img-overlay rounded-0 product-overlay d-flex align-items-center justify-content-center">
                             <ul class="list-unstyled">
                                 <li>
+                                    <a class="btn btn-success text-white mt-2" th:href="@{/detail/{id}(id=${product.id})}"><i class="far fa-eye"></i></a>
                                     <form th:action="@{/cart/add}" method="post">
                                         <input type="hidden" name="quantity" min="1" value="1" class="form-control d-inline-block" style="width: 70px;">
                                         <input type="hidden" th:value="${product.id}" name="productId"/>
@@ -195,6 +193,8 @@
                     </div>
                     <div class="card-body">
                         <p class="h3 card-title text-center"style="font-weight: 500;" th:text="${product.name}"></p>
+                        <p class="text-center" th:text="'Category: ' + ${product.category.getName()}"></p>
+                        <p class="text-center" th:text="'Brand: ' + ${product.brand.getName()}"></p>
                         <p class="product-price">
                             <span class="original-price" th:text="${#numbers.formatDecimal(product.price * 0.8,0, 'COMMA', 0, 'POINT')} + ' đ'"></span>
                             <span class="discounted-price" th:text="${#numbers.formatDecimal(product.price,  0, 'COMMA', 0, 'POINT')} + ' đ'"></span>
@@ -203,7 +203,6 @@
                 </div>
             </div>
         </div>
-
         <!-- End Featured Product -->
     </div>
 </section>

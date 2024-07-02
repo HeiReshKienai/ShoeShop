@@ -11,4 +11,10 @@ import java.util.List;
 public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("SELECT p FROM Product p JOIN OrderDetail od ON p.name = od.productName GROUP BY p.id ORDER BY SUM(od.quantity) DESC")
     List<Product> findTopProducts(Pageable pageable);
+
+    List<Product> findByCategoryId(Long categoryId);
+
+    List<Product> findByBrandId(Long brandId);
+
+    List<Product> findByNameContaining(String name);
 }
