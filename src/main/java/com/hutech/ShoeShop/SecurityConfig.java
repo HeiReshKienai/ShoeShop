@@ -38,14 +38,12 @@ public class SecurityConfig {
         return http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
 
-                        .requestMatchers("/css/**", "/js/**", "/img/**", "/webfonts/**", "/", "/oauth/**", "/register", "/error",
-                                "/products", "/cart", "/cart/**", "/uploads/**","/about","/shop")
+                        .requestMatchers("/css/**", "/js/**", "/img/**", "/webfonts/**", "/", "/oauth/**", "/register", "/error", "/cart", "/cart/**", "/uploads/**","/about","/shop","/shop/**", "/detail/**", "/detail")
                         .permitAll() // Cho phép truy cập không cần xác thực.
                         .requestMatchers("/products","/products/edit/**", "/products/add", "/products/delete","categories","brands","/categories/edit/","/categories/add","/categories/delete","/brands/add","/brands/edit/**","/brands/delete/")
                         .hasAnyAuthority("ADMIN") // Chỉ cho phép ADMIN truy cập.
                         .requestMatchers("/profile", "/profile/edit", "/profile/change-password", "/order", "/order/**")
                         .authenticated() // Yêu cầu xác thực.
-                        .requestMatchers("/api/**").permitAll() // API mở cho mọi người dùng.
                         .anyRequest().authenticated() // Bất kỳ yêu cầu nào khác cần xác thực.
                 ) .
                 logout(logout -> logout
@@ -72,10 +70,6 @@ public class SecurityConfig {
                 exceptionHandling(exceptionHandling -> exceptionHandling
                         .accessDeniedPage("/403") // Trang báo lỗi khi truy cập không được phép.
                 ) .
-                /*sessionManagement(sessionManagement -> sessionManagement
-                        .maximumSessions(1) // Giới hạn số phiên đăng nhập.
-                        .expiredUrl("/login") // Trang khi phiên hết hạn.
-                ) .*/
                 httpBasic(httpBasic -> httpBasic
                         .realmName("hutech") // Tên miền cho xác thực cơ bản.
                 ) .

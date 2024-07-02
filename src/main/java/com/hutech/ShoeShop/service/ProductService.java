@@ -96,10 +96,13 @@ public class ProductService {
         Pageable top6 = PageRequest.of(0, 6);
         return productRepository.findTopProducts(top6);
     }
-
-
-    public List<Product> getTop6Products() {
-        Pageable top6 = PageRequest.of(0, 6);
-        return productRepository.findTopProducts(top6);
+    public List<Product> getProductsByCategoryId(Long categoryId) {
+        return productRepository.findByCategoryId(categoryId);
+    }
+    public List<Product> getProductsByBrandId(Long brandId) {
+        return productRepository.findByBrandId(brandId);
+    }
+    public List<Product> getProductsByName(String name) {
+        return productRepository.findByNameContaining(name);
     }
 }

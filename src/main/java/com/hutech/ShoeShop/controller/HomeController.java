@@ -1,5 +1,7 @@
 package com.hutech.ShoeShop.controller;
 
+import com.hutech.ShoeShop.model.Product;
+import com.hutech.ShoeShop.service.BrandService;
 import com.hutech.ShoeShop.service.CategoryService;
 import com.hutech.ShoeShop.service.ProductService;
 import com.hutech.ShoeShop.service.UserService;
@@ -9,6 +11,10 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.Optional;
 
 @Controller
 public class HomeController {
@@ -18,6 +24,8 @@ public class HomeController {
     private CategoryService categoryService;
     @Autowired
     private ProductService productService;
+    @Autowired
+    private BrandService brandService;
 
     @GetMapping("/")
     public String home(Model model) {
@@ -28,6 +36,13 @@ public class HomeController {
         return "home/index";
     }
 
+    @GetMapping("/detail/{id}")
+    public String detail(Model model, @PathVariable("id") Long id) {
+        Product product = productService.getProductById(id).get();
+        model.addAttribute("product", product);
+        return "home/detail";
+    }
+
     @GetMapping("/about")
     public String about() {
 
@@ -35,8 +50,23 @@ public class HomeController {
     }
 
     @GetMapping("/shop")
-    public String shop(Model model) {
-        model.addAttribute("products", productService.getAllProducts());
+    public String shop(Model model,
+                       @RequestParam(value = "category", required = false) Long categoryId,
+                       @RequestParam(value = "brand", required = false) Long brandId,
+                       @RequestParam(value = "q", required = false) String q) {
+        if (categoryId != null) {
+            model.addAttribute("products", productService.getProductsByCategoryId(categoryId));
+        } else if (brandId != null) {
+            model.addAttribute("products", productService.getProductsByBrandId(brandId));
+        } else if (q != null) {
+            model.addAttribute("products", productService.getProductsByName(q));
+        } else {
+            model.addAttribute("products", productService.getAllProducts());
+        }
+
+        model.addAttribute("categories", categoryService.getAllCategories());
+        model.addAttribute("brands", brandService.getAllBrands());
         return "home/shop";
     }
+
 }
