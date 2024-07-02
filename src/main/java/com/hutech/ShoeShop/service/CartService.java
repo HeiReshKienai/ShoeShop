@@ -43,5 +43,10 @@ public class CartService {
     public void clearCart() {
         cartItems.clear();
     }
-}
 
+    public double getTotalPrice() {
+        return cartItems.stream()
+                .mapToDouble(item -> item.getProduct().getPrice() * item.getQuantity())
+                .sum();
+    }
+}
