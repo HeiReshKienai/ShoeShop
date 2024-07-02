@@ -6,10 +6,11 @@
     <meta charset="UTF-8">
     <title>Dashboard</title>
     <link rel="stylesheet" href="path/to/font-awesome/css/font-awesome.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 <section layout:fragment="content" class="container mt-5">
-  <h1>Thống kê</h1>
+    <h1>Thống kê</h1>
     <div class="row">
         <div class="col-sm-6 col-md-3">
             <div class="card card-stats card-primary card-round">
@@ -22,8 +23,8 @@
                         </div>
                         <div class="col-7 col-stats">
                             <div class="numbers">
-                                <p class="card-category">Visitors</p>
-                                <h4 class="card-title">1,294</h4>
+                                <p class="card-category">Tài khoản</p>
+                                <h4 class="card-title" th:text="${totalAccounts}">1,294</h4>
                             </div>
                         </div>
                     </div>
@@ -41,8 +42,8 @@
                         </div>
                         <div class="col-7 col-stats">
                             <div class="numbers">
-                                <p class="card-category">Subscribers</p>
-                                <h4 class="card-title">1303</h4>
+                                <p class="card-category">Tài khoản có mua hàng</p>
+                                <h4 class="card-title" th:text="${accountsWithPurchase}">1303</h4>
                             </div>
                         </div>
                     </div>
@@ -60,8 +61,8 @@
                         </div>
                         <div class="col-7 col-stats">
                             <div class="numbers">
-                                <p class="card-category">Sales</p>
-                                <h4 class="card-title">$ 1,345</h4>
+                                <p class="card-category">Số tiền bán</p>
+                                <h4 class="card-title" th:text="${totalSalesAmount}">$ 1,345</h4>
                             </div>
                         </div>
                     </div>
@@ -79,8 +80,8 @@
                         </div>
                         <div class="col-7 col-stats">
                             <div class="numbers">
-                                <p class="card-category">Order</p>
-                                <h4 class="card-title">576</h4>
+                                <p class="card-category">Đơn hàng</p>
+                                <h4 class="card-title" th:text="${totalOrders}">576</h4>
                             </div>
                         </div>
                     </div>

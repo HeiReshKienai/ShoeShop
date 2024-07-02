@@ -74,4 +74,18 @@ public class UserService implements UserDetailsService {
     public void updateUserByUsername(String username, User user) {
         userRepository.updateUserByUsername(username, user.getEmail(),user.getFullName(),user.getAddress(),user.getPhone());
     }
+
+    public long getTotalAccounts() {
+        return userRepository.getTotalAccounts();
+    }
+    public long getAccountsWithPurchase() {
+        return userRepository.getAccountsWithPurchase();
+    }
+    public long getTotalSalesAmount() {
+        return userRepository.getTotalSalesAmount();
+    }
+
+    public long getTotalOrders() {
+        return userRepository.getTotalOrders();
+    }
 }

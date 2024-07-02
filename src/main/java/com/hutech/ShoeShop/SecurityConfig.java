@@ -40,8 +40,10 @@ public class SecurityConfig {
 
                         .requestMatchers("/css/**", "/js/**", "/img/**", "/webfonts/**", "/", "/oauth/**", "/register", "/error", "/cart", "/cart/**", "/uploads/**","/about")
                         .permitAll() // Cho phép truy cập không cần xác thực.
-                        .requestMatchers("/products","/products/edit/**", "/products/add", "/products/delete","categories","brands","/categories/edit/","/categories/add","/categories/delete","/brands/add","/brands/edit/**","/brands/delete/","/order/**", "/order")
+                        .requestMatchers("/products","/products/edit/**", "/products/add", "/products/delete","categories","brands","/categories/edit/","/categories/add","/categories/delete","/brands/add","/brands/edit/**","/brands/delete/")
                         .hasAnyAuthority("ADMIN") // Chỉ cho phép ADMIN truy cập.
+                        .requestMatchers("/profile", "/profile/edit", "/profile/change-password", "/order", "/order/**")
+                        .authenticated() // Yêu cầu xác thực.
                         .requestMatchers("/api/**").permitAll() // API mở cho mọi người dùng.
                         .anyRequest().authenticated() // Bất kỳ yêu cầu nào khác cần xác thực.
                 ) .

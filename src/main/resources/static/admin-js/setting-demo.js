@@ -71,11 +71,6 @@ $(".changeBackgroundColor").on("click", function () {
 
 function customCheckColor() {
   var logoHeader = $(".logo-header").attr("data-background-color");
-  if (logoHeader !== "white") {
-    $(".logo-header .navbar-brand").attr("src", "assets/img/kaiadmin/logo_light.svg");
-  } else {
-    $(".logo-header .navbar-brand").attr("src", "assets/img/kaiadmin/logo_dark.svg");
-  }
 }
 
 var toggle_customSidebar = false,
