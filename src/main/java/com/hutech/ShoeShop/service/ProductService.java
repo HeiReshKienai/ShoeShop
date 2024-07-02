@@ -6,6 +6,8 @@ import jakarta.annotation.PostConstruct;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -91,4 +93,8 @@ public class ProductService {
         return imageName;
     }
 
+    public List<Product> getTop6Products() {
+        Pageable top6 = PageRequest.of(0, 6);
+        return productRepository.findTopProducts(top6);
+    }
 }

@@ -24,7 +24,7 @@ public class HomeController {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentUsername = authentication.getName();
         model.addAttribute("currentUser", currentUsername);
-        model.addAttribute("products", productService.getAllProducts());
+        model.addAttribute("products", productService.getTop6Products());
         return "home/index";
     }
 

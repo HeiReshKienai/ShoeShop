@@ -38,8 +38,7 @@ public class SecurityConfig {
         return http.csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
 
-                        .requestMatchers("/css/**", "/js/**", "/img/**", "/webfonts/**", "/", "/oauth/**", "/register", "/error",
-                                "/products", "/cart", "/cart/**", "/uploads/**","/about")
+                        .requestMatchers("/css/**", "/js/**", "/img/**", "/webfonts/**", "/", "/oauth/**", "/register", "/error", "/cart", "/cart/**", "/uploads/**","/about")
                         .permitAll() // Cho phép truy cập không cần xác thực.
                         .requestMatchers("/products","/products/edit/**", "/products/add", "/products/delete","categories","brands","/categories/edit/","/categories/add","/categories/delete","/brands/add","/brands/edit/**","/brands/delete/","/order/**", "/order")
                         .hasAnyAuthority("ADMIN") // Chỉ cho phép ADMIN truy cập.

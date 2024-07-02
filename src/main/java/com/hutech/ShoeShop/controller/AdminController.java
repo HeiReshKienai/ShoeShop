@@ -1,4 +1,4 @@
-package com.hutech.ShoeShop.controller.admin;
+package com.hutech.ShoeShop.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
