@@ -19,7 +19,7 @@
             margin-left: 20px;
         }
         .dynamic-txts li {
-            color: #FC6D6D;
+            color: #0f8f01;
             list-style: none;
 
 
@@ -36,7 +36,7 @@
             height: 110%;
             width: 100%;
             background: #FFFFFF;
-            border-left: 2px solid #FC6D6D;
+            border-left: 2px solid #347115;
             animation: typing 1.5s steps(10) infinite;
         }
         @keyframes typing {
@@ -56,8 +56,8 @@
             position: absolute;
             top: 10px;
             left: 10px;
-            background-color: red;
-            color: white;
+            background-color: #cfcfcf;
+            color: #575757;
             padding: 5px 10px;
             font-size: 14px;
             font-weight: bold;
@@ -71,11 +71,11 @@
         }
         .product-price .original-price {
             text-decoration: line-through;
-            color: gray;
+            color: #676767;
             font-size: 1rem;
         }
         .product-price .discounted-price {
-            color: red;
+            color: #346800;
             font-size: 1.2rem;
             font-weight: bold;
         }
@@ -196,7 +196,7 @@
                         <p class="text-center" th:text="'Category: ' + ${product.category.getName()}"></p>
                         <p class="text-center" th:text="'Brand: ' + ${product.brand.getName()}"></p>
                         <p class="product-price">
-                            <span class="original-price" th:text="${#numbers.formatDecimal(product.price * 0.8,0, 'COMMA', 0, 'POINT')} + ' đ'"></span>
+                            <span class="original-price" th:text="${#numbers.formatDecimal(product.price / 0.8,0, 'COMMA', 0, 'POINT')} + ' đ'"></span>
                             <span class="discounted-price" th:text="${#numbers.formatDecimal(product.price,  0, 'COMMA', 0, 'POINT')} + ' đ'"></span>
                         </p>
                     </div>
