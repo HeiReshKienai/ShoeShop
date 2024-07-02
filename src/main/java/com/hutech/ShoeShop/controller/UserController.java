@@ -41,7 +41,8 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public String register(@Valid @ModelAttribute("user") User user, @NotNull BindingResult bindingResult, Model model) {
+    public String register(@Valid @ModelAttribute("user") User user, BindingResult bindingResult, Model model) {
+        // Check for binding errors
         if (bindingResult.hasErrors()) {
             var errors = bindingResult.getAllErrors()
                     .stream()
@@ -50,10 +51,32 @@ public class UserController {
             model.addAttribute("errors", errors);
             return "users/register";
         }
+
+        // Check for duplicate email
+        if (userService.emailExists(user.getEmail())) {
+            model.addAttribute("emailError", "Email already exists.");
+            return "users/register";
+        }
+
+        // Check for duplicate username
+        if (userService.usernameExists(user.getUsername())) {
+            model.addAttribute("usernameError", "Username already exists.");
+            return "users/register";
+        }
+
+        // Check for duplicate phone number
+        if (userService.phoneExists(user.getPhone())) {
+            model.addAttribute("phoneError", "Phone number already exists.");
+            return "users/register";
+        }
+
+        // Save user and set default role
         userService.save(user);
         userService.setDefaultRole(user.getUsername());
+
         return "redirect:/login";
     }
+
 
     @GetMapping("/profile")
     public String userProfile(Model model) {

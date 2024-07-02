@@ -88,4 +88,16 @@ public class UserService implements UserDetailsService {
     public long getTotalOrders() {
         return userRepository.getTotalOrders();
     }
+    public boolean emailExists(String email) {
+        return userRepository.findByEmail(email).isPresent();
+    }
+
+    public boolean usernameExists(String username) {
+        return userRepository.findByUsername(username).isPresent();
+    }
+
+    public boolean phoneExists(String phone) {
+        return userRepository.findByPhone(phone).isPresent();
+    }
+
 }

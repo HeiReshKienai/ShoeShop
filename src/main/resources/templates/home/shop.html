@@ -76,7 +76,6 @@
             <div class="col-lg-9">
                 <div class="row">
 
-
                 <div class="row row-cols-1 row-cols-md-3 g-4">
                     <div class="col" th:each="product : ${products}">
                         <div class="card mb-4 product-wap rounded-0">
@@ -104,6 +103,7 @@
                                     <span class="original-price" th:text="${#numbers.formatDecimal(product.price * 0.8,0, 'COMMA', 0, 'POINT')} + ' đ'"></span>
                                     <span class="discounted-price" th:text="${#numbers.formatDecimal(product.price,  0, 'COMMA', 0, 'POINT')} + ' đ'"></span>
                                 </p>
+
                             </div>
                         </div>
                     </div>
